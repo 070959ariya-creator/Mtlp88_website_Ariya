@@ -1,0 +1,9 @@
+{
+  "name": "mtlp88-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MTLP88 static website",
+  "scripts": {
+    "start": "npx --yes serve -s . -l ${PORT:-3000}"
+  }
+}
