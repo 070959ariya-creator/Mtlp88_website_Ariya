@@ -583,16 +583,17 @@ button{font-family:'Sarabun',sans-serif;cursor:pointer}
       </div>
     </div>
     <form id="contactForm" style="flex:1;min-width:280px;background:#FFFFFF;border:1px solid #F5D6E8;border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:16px;box-sizing:border-box;">
+      <div style="font-size:12px;color:#A99AA3;margin-top:-8px;"><span data-lang="th">* ชื่อ-นามสกุล จำเป็นต้องกรอก และต้องกรอกเบอร์โทรหรืออีเมลอย่างน้อย 1 ช่องทาง เพื่อให้เราติดต่อกลับได้</span><span data-lang="en">* Name is required, and at least one of Phone or Email is required so we can contact you back</span></div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <label for="fname" style="font-size:13px;color:#5B6472;"><span data-lang="th">ชื่อ-นามสกุล</span><span data-lang="en">Full Name</span></label>
-        <input id="fname" type="text" placeholder="กรอกชื่อของคุณ" data-th-placeholder="กรอกชื่อของคุณ" data-en-placeholder="Enter your name" style="border:1px solid #E7D3E0;border-radius:6px;padding:12px;font-size:14px;font-family:'Sarabun',sans-serif;box-sizing:border-box;">
+        <label for="fname" style="font-size:13px;color:#5B6472;"><span data-lang="th">ชื่อ-นามสกุล *</span><span data-lang="en">Full Name *</span></label>
+        <input id="fname" type="text" required placeholder="กรอกชื่อของคุณ" data-th-placeholder="กรอกชื่อของคุณ" data-en-placeholder="Enter your name" style="border:1px solid #E7D3E0;border-radius:6px;padding:12px;font-size:14px;font-family:'Sarabun',sans-serif;box-sizing:border-box;">
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <label for="fphone" style="font-size:13px;color:#5B6472;"><span data-lang="th">เบอร์โทร</span><span data-lang="en">Phone</span></label>
+        <label for="fphone" style="font-size:13px;color:#5B6472;"><span data-lang="th">เบอร์โทร *</span><span data-lang="en">Phone *</span></label>
         <input id="fphone" type="tel" placeholder="08X-XXX-XXXX" data-th-placeholder="08X-XXX-XXXX" data-en-placeholder="08X-XXX-XXXX" style="border:1px solid #E7D3E0;border-radius:6px;padding:12px;font-size:14px;font-family:'Sarabun',sans-serif;box-sizing:border-box;">
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <label for="femail" style="font-size:13px;color:#5B6472;"><span data-lang="th">อีเมล</span><span data-lang="en">Email</span></label>
+        <label for="femail" style="font-size:13px;color:#5B6472;"><span data-lang="th">อีเมล *</span><span data-lang="en">Email *</span></label>
         <input id="femail" type="email" placeholder="you@email.com" data-th-placeholder="you@email.com" data-en-placeholder="you@email.com" style="border:1px solid #E7D3E0;border-radius:6px;padding:12px;font-size:14px;font-family:'Sarabun',sans-serif;box-sizing:border-box;">
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;">
@@ -711,6 +712,28 @@ document.getElementById('contactForm').addEventListener('submit', function (evt)
     msgBox.style.background = '#FDEFF5';
     msgBox.style.color = '#8A8090';
     msgBox.textContent = 'ฟอร์มยังไม่ได้เชื่อมต่อปลายทางเก็บข้อมูล กรุณาติดต่อผ่านช่องทางอื่นด้านซ้ายไปก่อนนะคะ';
+    return;
+  }
+
+  var nameVal = document.getElementById('fname').value.trim();
+  var phoneVal = document.getElementById('fphone').value.trim();
+  var emailVal = document.getElementById('femail').value.trim();
+
+  if (!nameVal) {
+    msgBox.style.display = 'block';
+    msgBox.style.background = '#FDEFF5';
+    msgBox.style.color = '#B0125F';
+    msgBox.textContent = 'กรุณากรอกชื่อ-นามสกุล';
+    document.getElementById('fname').focus();
+    return;
+  }
+
+  if (!phoneVal && !emailVal) {
+    msgBox.style.display = 'block';
+    msgBox.style.background = '#FDEFF5';
+    msgBox.style.color = '#B0125F';
+    msgBox.textContent = 'กรุณากรอกเบอร์โทร หรืออีเมล อย่างน้อย 1 ช่องทาง เพื่อให้เราติดต่อกลับได้';
+    document.getElementById('fphone').focus();
     return;
   }
 
